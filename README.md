@@ -4,7 +4,7 @@ Static marketing site for **Kingpin Katsu**: Bay Area pop-ups, catering, and the
 road to our first restaurant. Built with [Astro](https://astro.build), hosted on
 GitHub Pages.
 
-- Live (preview): https://joeyqliu.github.io/kingpin-katsu/
+- Live (preview): https://joeyqliu.com/kingpin-katsu/ (GitHub Pages under the owner's personal domain)
 - Content editing for non-developers: **[EDITING.md](EDITING.md)**
 
 ## Develop
