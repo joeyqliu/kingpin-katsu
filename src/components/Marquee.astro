@@ -1,0 +1,73 @@
+---
+interface Props {
+  words: string[];
+  tone?: 'orange' | 'red' | 'cream';
+}
+const { words, tone = 'orange' } = Astro.props;
+const run = [...words, ...words];
+---
+
+<div class={`mq mq--${tone}`} aria-hidden="true">
+  <div class="mq__track">
+    {[0, 1].map(() => (
+      <span class="mq__run">
+        {run.map((w) => (
+          <span class="mq__word">
+            {w}
+            <i>✦</i>
+          </span>
+        ))}
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .mq {
+    overflow: hidden;
+    border-block: 4px solid var(--ink);
+    transform: rotate(-1.5deg);
+    margin-inline: -2vw;
+    position: relative;
+    z-index: 2;
+  }
+  .mq--orange {
+    background: var(--orange);
+    color: var(--ink);
+  }
+  .mq--red {
+    background: var(--red-hot);
+    color: var(--cream);
+  }
+  .mq--cream {
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .mq__track {
+    display: flex;
+    width: max-content;
+  }
+  .mq__run {
+    display: flex;
+  }
+  .mq__word {
+    font: 400 clamp(1.2rem, 2.6vw, 1.8rem) / 1 var(--display);
+    padding: 0.85rem 0 0.85rem 1.4rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .mq__word i {
+    font-style: normal;
+    margin-left: 1.4rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mq__track {
+      animation: mq 38s linear infinite;
+    }
+  }
+  @keyframes mq {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

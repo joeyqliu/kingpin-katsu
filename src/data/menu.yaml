@@ -1,0 +1,49 @@
+# The menu. Each item can optionally have:
+#   price: '$18'          (shows a price tag)
+#   tags: [Vegetarian]    (shows small labels)
+# image must be a file name from src/assets/food/ (without .jpg)
+
+sections:
+  - title: Katsu
+    blurb: Dry-brined overnight, crusted in Japanese panko, fried to order. Pick chicken, pork, or tofu.
+    items:
+      - name: Katsu Bento Box
+        description: Katsu, rice, cabbage, dipping sauce, and two side dishes. The best of everything.
+        image: chicken-katsu-bento
+      - name: Katsu Curry
+        description: Katsu, Japanese vegetable curry, rice and cabbage.
+        image: tonkatsu-curry
+      - name: Katsu Sando
+        description: Katsu, cabbage, and tonkatsu sauce between two slices of fluffy milk bread.
+        image: sando
+      - name: Katsu Burger
+        description: Katsu, romaine lettuce, pickles, tomatoes, and sriracha aioli on a toasted brioche bun.
+        image: burger
+      - name: Katsu Nuggets
+        description: Bite-size katsu, golden and crunchy. Dangerously poppable.
+        image: nuggets
+  - title: House Sides
+    blurb: Hand-made fresh daily to pair with your katsu.
+    items:
+      - name: Furikake Fries
+        description: Crispy thin straight-cut fries dusted with ground furikake seasoning.
+        image: fries
+      - name: Japanese Potato Salad
+        description: Mashed potatoes with mayo, cucumber slices, sweet corn, and shredded carrot.
+        image: potato-salad
+      - name: Spicy Cucumber Salad
+        description: Pickled cucumber slices, seasoned with Ichimi Togarashi and topped with toasted sesame seeds.
+        image: cucumber-salad
+      - name: Macaroni Salad
+        description: Small macaroni noodles mixed with mayo, a dash of milk, and cubed Fuji apples.
+        image: mac-salad
+
+# Coming to the restaurant (from the Kickstarter)
+comingSoon:
+  drinks:
+    - Yuzu lemonade
+    - House-made cold-brew lemon jasmine tea
+    - Imported Japanese beers on tap
+  testing:
+    - Katsudon
+    - Hokkaido milk soft serve

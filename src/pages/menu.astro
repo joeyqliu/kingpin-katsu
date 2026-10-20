@@ -1,0 +1,238 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Dish from '../components/Dish.astro';
+import Marquee from '../components/Marquee.astro';
+import { foodImage } from '../lib/images';
+import { site, menu } from '../lib/data';
+import { kickstarterState } from '../lib/time';
+
+const [katsu, sides] = menu.sections;
+const cutlets = [
+  { name: 'Chicken', img: 'chicken-katsu', tilt: -4 },
+  { name: 'Pork', img: 'tonkatsu', tilt: 3 },
+  { name: 'Tofu', img: 'tofu-katsu', tilt: -2 },
+];
+const ksLive = kickstarterState(site.kickstarter, new Date()) === 'live';
+---
+
+<Base
+  title="Menu"
+  description="Katsu bento boxes, katsu curry, katsu sandos, katsu burgers, nuggets and house-made sides. Chicken, pork, or tofu, fried to order."
+>
+  <section class="section mhero panko">
+    <div class="wrap center">
+      <span class="eyebrow">The menu</span>
+      <h1>Fried to order.<br /><span class="hl">Built your way.</span></h1>
+      <p class="mhero__lede">Every dish starts with your pick of katsu: dry-brined overnight, crusted in panko, fried fresh.</p>
+    </div>
+
+    <div class="wrap cutlets">
+      {
+        cutlets.map((c) => (
+          <div class="cutlet">
+            <Picture
+              src={foodImage(c.img)}
+              formats={['avif', 'webp']}
+              alt={`${c.name} katsu`}
+              widths={[260, 420]}
+              sizes="(max-width: 640px) 30vw, 260px"
+              class="wiggle"
+            />
+            <span class="sticker" style={`--tilt:${c.tilt}deg`}>
+              {c.name}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <Marquee words={['Pick a katsu', 'Pick a style', 'Pile on the sides']} tone="red" />
+
+  <section class="section" aria-labelledby="katsu-title">
+    <div class="wrap">
+      <header class="msec__head">
+        <h2 id="katsu-title">{katsu!.title}</h2>
+        {katsu!.blurb && <p>{katsu!.blurb}</p>}
+      </header>
+      <div class="grid grid--3">
+        {katsu!.items.map((item, i) => <Dish item={item} tilt={i % 2 ? 3 : -3} />)}
+      </div>
+      <p class="bento-note">
+        <strong>Bento box =</strong> katsu + rice + cabbage + dipping sauce + <em>two</em> house sides.
+      </p>
+    </div>
+  </section>
+
+  <section class="section sides" aria-labelledby="sides-title">
+    <div class="wrap">
+      <header class="msec__head">
+        <h2 id="sides-title">{sides!.title}</h2>
+        {sides!.blurb && <p>{sides!.blurb}</p>}
+      </header>
+      <div class="grid grid--4">
+        {sides!.items.map((item, i) => <Dish item={item} tilt={i % 2 ? -3 : 3} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-cream panko" aria-labelledby="soon-title">
+    <div class="wrap soon">
+      <div>
+        <span class="eyebrow">Coming to the restaurant</span>
+        <h2 id="soon-title">More where<br />that came from.</h2>
+        <p>
+          When we open our doors, the menu grows. Help make it happen by backing our Kickstarter.
+        </p>
+        {
+          ksLive ? (
+            <a class="btn btn--red" href={site.kickstarter.url} target="_blank" rel="noopener">
+              Back our Kickstarter ↗
+            </a>
+          ) : (
+            <a class="btn btn--red" href={site.instagram.url} target="_blank" rel="noopener">
+              Follow for opening news ↗
+            </a>
+          )
+        }
+      </div>
+      <div class="soon__lists">
+        <div class="soon__card">
+          <h3>Cold drinks</h3>
+          <ul>{menu.comingSoon.drinks.map((d) => <li>{d}</li>)}</ul>
+        </div>
+        <div class="soon__card soon__card--alt">
+          <h3>In the test kitchen</h3>
+          <ul>{menu.comingSoon.testing.map((d) => <li>{d}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <p class="menu-fine">
+        Menu varies a little by pop-up. Check{' '}
+        <a href={site.instagram.url} target="_blank" rel="noopener">Instagram</a> for what's frying.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .center {
+    text-align: center;
+  }
+  .mhero__lede {
+    max-width: 38ch;
+    margin-inline: auto;
+    font-size: 1.15rem;
+    opacity: 0.9;
+  }
+  .cutlets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 820px;
+    margin-top: 2rem;
+  }
+  .cutlet {
+    display: grid;
+    justify-items: center;
+  }
+  .cutlet :global(img) {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .cutlet .sticker {
+    margin-top: -1.5rem;
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    background: var(--orange);
+  }
+  .msec__head {
+    text-align: center;
+    max-width: 44rem;
+    margin: 0 auto 2.5rem;
+  }
+  .msec__head p {
+    opacity: 0.9;
+  }
+  .grid {
+    display: grid;
+    gap: 2.5rem 1.5rem;
+  }
+  .grid--3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .grid--3 > :global(*) {
+    flex: 0 1 calc((100% - 3rem) / 3);
+  }
+  .sides {
+    border-top: 4px dashed rgb(255 244 224 / 0.15);
+  }
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .bento-note {
+    text-align: center;
+    margin: 2.5rem auto 0;
+    width: fit-content;
+    border: 3px dashed var(--orange);
+    border-radius: 18px;
+    padding: 1rem 1.5rem;
+  }
+  .soon {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .soon__lists {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .soon__card {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: 6px 6px 0 var(--orange);
+    padding: 1.4rem 1.6rem;
+    transform: rotate(-1.2deg);
+  }
+  .soon__card--alt {
+    box-shadow: 6px 6px 0 var(--red-hot);
+    transform: rotate(1.2deg);
+  }
+  .soon__card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+  .soon__card li::marker {
+    content: '✦  ';
+    color: var(--red-hot);
+  }
+  .menu-fine {
+    opacity: 0.8;
+  }
+  @media (max-width: 960px) {
+    .grid--3 > :global(*) {
+      flex-basis: calc((100% - 1.5rem) / 2);
+    }
+    .grid--4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .soon {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid--3 > :global(*) {
+      flex-basis: 100%;
+    }
+  }
+</style>

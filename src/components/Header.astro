@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import badge from '../assets/brand/badge.png';
+import { site } from '../lib/data';
+import { kickstarterState } from '../lib/time';
+import { url } from '../lib/url';
+
+const live = kickstarterState(site.kickstarter, new Date()) === 'live';
+const path = Astro.url.pathname.replace(/\/$/, '');
+const links = [
+  { href: url('menu'), label: 'Menu' },
+  { href: url('popups'), label: 'Pop-ups' },
+  { href: url('catering'), label: 'Catering' },
+  { href: url('about'), label: 'About' },
+];
+---
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo wiggle" href={url()} aria-label={`${site.name} home`}>
+      <Image src={badge} alt="" width={64} height={64} loading="eager" />
+      <span class="hdr__name">Kingpin<br />Katsu</span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Main">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={path === l.href.replace(/\/$/, '') ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hdr__cta">
+      {site.orderUrl && <a class="btn btn--cream btn--sm" href={site.orderUrl}>Order</a>}
+      {
+        live ? (
+          <a class="btn btn--sm" href={site.kickstarter.url} target="_blank" rel="noopener">
+            Back our Kickstarter
+          </a>
+        ) : (
+          <a class="btn btn--sm" href={site.instagram.url} target="_blank" rel="noopener">
+            Follow us
+          </a>
+        )
+      }
+    </div>
+
+    <details class="hdr__menu">
+      <summary aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </summary>
+      <nav aria-label="Mobile">
+        <a href={url()}>Home</a>
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
+        {site.orderUrl && <a href={site.orderUrl}>Order online</a>}
+        <a href={site.kickstarter.url} target="_blank" rel="noopener">Kickstarter ↗</a>
+        <a href={site.instagram.url} target="_blank" rel="noopener">Instagram ↗</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(0 0 0 / 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgb(255 244 224 / 0.1);
+  }
+  .hdr__in {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 76px;
+  }
+  .hdr__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+  }
+  .hdr__logo img {
+    width: 54px;
+    height: 54px;
+  }
+  .hdr__name {
+    font: 400 1rem/1 var(--display);
+  }
+  .hdr__nav {
+    display: flex;
+    gap: 0.25rem;
+    margin-left: auto;
+  }
+  .hdr__nav a {
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    transition: background 0.15s;
+  }
+  .hdr__nav a:hover {
+    background: rgb(255 244 224 / 0.1);
+  }
+  .hdr__nav a[aria-current='page'] {
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .hdr__cta {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .hdr__menu {
+    display: none;
+    margin-left: auto;
+    position: relative;
+  }
+  .hdr__menu summary {
+    list-style: none;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    border: 3px solid var(--cream);
+    border-radius: 14px;
+  }
+  .hdr__menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .hdr__menu summary span {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .hdr__menu[open] summary span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hdr__menu[open] summary span:nth-child(2) {
+    opacity: 0;
+  }
+  .hdr__menu[open] summary span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  .hdr__menu nav {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 12px);
+    width: min(78vw, 300px);
+    display: grid;
+    background: var(--cream);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: 6px 6px 0 var(--orange);
+    padding: 0.6rem;
+  }
+  .hdr__menu nav a {
+    font: 400 1.25rem/1 var(--display);
+    text-decoration: none;
+    padding: 0.85rem 0.9rem;
+    border-radius: 12px;
+  }
+  .hdr__menu nav a:hover {
+    background: var(--orange);
+  }
+  @media (max-width: 880px) {
+    .hdr__nav,
+    .hdr__cta {
+      display: none;
+    }
+    .hdr__menu {
+      display: block;
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import { site } from '../lib/data';
+interface Props {
+  subject?: string;
+  primary?: 'call' | 'email';
+}
+const { subject = 'Hello from the website', primary = 'call' } = Astro.props;
+const mail = `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
+const tel = site.phone ? `tel:${site.phone.replace(/[^\d+]/g, '')}` : '';
+---
+
+<div class="btn-row">
+  {
+    tel && primary === 'call' && (
+      <a class="btn" href={tel}>
+        Call {site.phone}
+      </a>
+    )
+  }
+  <a class={tel && primary === 'call' ? 'btn btn--cream' : 'btn'} href={mail}>Email us</a>
+  <a class="btn btn--cream" href={site.instagram.url} target="_blank" rel="noopener">DM on Instagram</a>
+</div>

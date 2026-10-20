@@ -1,0 +1,165 @@
+---
+import { Image, Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+import { eventImage, foodImage } from '../lib/images';
+import { site } from '../lib/data';
+
+const goodFor = ['Office lunches', 'Birthday parties', 'School & community events', 'Brewery takeovers', 'Night markets', 'Team celebrations'];
+---
+
+<Base
+  title="Catering"
+  description="Kingpin Katsu caters across the Bay Area: bento trays delivered, or our pop-up booth frying fresh on site. Reach out for a quote."
+>
+  <section class="section panko chero">
+    <div class="wrap chero__in">
+      <div>
+        <span class="eyebrow">Catering · Bay Area</span>
+        <h1>Katsu for the <span class="hl">whole crew.</span></h1>
+        <p class="chero__lede">
+          We cater across the Bay Area. Tell us about your event and we'll put together a quote.
+        </p>
+        <p class="chero__call">{site.phone ? 'Call for quotes and info.' : 'Reach out for quotes and info.'}</p>
+        <ContactLinks subject="Catering inquiry" />
+      </div>
+      <div class="chero__art">
+      <Picture
+        src={foodImage('tonkatsu-bento')}
+        formats={['avif', 'webp']}
+        alt="Tonkatsu bento box"
+        widths={[420, 640, 900]}
+        sizes="(max-width: 860px) 90vw, 520px"
+        loading="eager"
+        class="chero__img"
+      />
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-cream" aria-labelledby="ways-title">
+    <div class="wrap">
+      <h2 id="ways-title" class="center">Two ways to cater</h2>
+      <div class="ways">
+        <article class="way">
+          <Image src={eventImage('bento-thumbs')} alt="A packed katsu bento ready to go" widths={[420, 640]} sizes="(max-width: 860px) 90vw, 520px" />
+          <div class="way__body">
+            <span class="sticker" style="--tilt:-4deg">Option 1</span>
+            <h3>Delivery</h3>
+            <p>Bento boxes and trays of katsu, curry, and sides, delivered ready to eat. Great for offices and parties.</p>
+          </div>
+        </article>
+        <article class="way">
+          <Image src={eventImage('booth-build')} alt="The Kingpin Katsu wooden booth being set up" widths={[420, 640]} sizes="(max-width: 860px) 90vw, 520px" />
+          <div class="way__body">
+            <span class="sticker" style="--tilt:3deg; background: var(--orange)">Option 2</span>
+            <h3>On-site pop-up</h3>
+            <p>We roll up with the whole wooden booth and fry everything fresh on the spot. Instant event energy.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <h2>Good for</h2>
+      <ul class="goodfor">{goodFor.map((g) => <li>{g}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section on-red noren-top" style="--noren: var(--ink)">
+    <div class="wrap center cta">
+      <h2>Let's feed your people.</h2>
+      <p>{site.phone ? 'Call for quotes and info, or drop us a line.' : 'Email or DM us for quotes and info.'}</p>
+      <div class="cta__links"><ContactLinks subject="Catering inquiry" /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .center {
+    text-align: center;
+  }
+  .chero__in {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  .chero__lede {
+    font-size: 1.2rem;
+    max-width: 34ch;
+  }
+  .chero__call {
+    font: 400 1.3rem/1.3 var(--display);
+    color: var(--orange);
+  }
+  .chero :global(.chero__img) {
+    width: 100%;
+  }
+  .ways {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 2rem;
+  }
+  .way {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .way img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-bottom: 3px solid var(--ink);
+  }
+  .way__body {
+    padding: 1.5rem 1.6rem 1.2rem;
+  }
+  .way__body .sticker {
+    margin-top: -3rem;
+    margin-bottom: 0.8rem;
+  }
+  .goodfor {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 50rem;
+  }
+  .goodfor li {
+    font: 400 1.05rem/1 var(--display);
+    border: 3px solid var(--cream);
+    border-radius: 999px;
+    padding: 0.8rem 1.2rem;
+  }
+  .goodfor li:nth-child(3n + 1) {
+    background: var(--orange);
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .cta {
+    padding-top: 1.5rem;
+  }
+  .cta__links :global(.btn-row) {
+    justify-content: center;
+  }
+  @media (max-width: 860px) {
+    .chero__in,
+    .ways {
+      grid-template-columns: 1fr;
+    }
+    .chero__art {
+      order: -1;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+  }
+</style>

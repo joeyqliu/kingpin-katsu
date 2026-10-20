@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import booth from '../assets/events/booth-night-team.jpg';
+import { site } from '../lib/data';
+import { kickstarterState, daysLeft, formatDeadline } from '../lib/time';
+
+const ks = site.kickstarter;
+const now = new Date();
+const state = kickstarterState(ks, now);
+const days = daysLeft(ks.endsAt, now);
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100)) : 0;
+---
+
+<section class="section ks" id="kickstarter" aria-labelledby="ks-title">
+  <div class="wrap">
+    <div class="ks__card">
+      <div class="ks__photo">
+        <Image src={booth} alt="The Kingpin Katsu crew in front of their wooden pop-up booth at night" widths={[480, 800]} sizes="(max-width: 860px) 100vw, 420px" />
+        <span class="sticker ks__sticker" style="--tilt: -8deg">From booth → restaurant</span>
+      </div>
+
+      <div class="ks__body">
+        {
+          state === 'live' && (
+            <>
+              <span class="eyebrow">Kickstarter · live now</span>
+              <h2 id="ks-title">
+                Help us open our <span class="hl-red">first restaurant!</span>
+              </h2>
+              <p>
+                We're raising <strong>{money(ks.goal)}</strong> to turn our pop-up booth into a real home: a cozy,
+                Kyoto-street-style katsu shop in the Bay Area. It's all or nothing: if we don't hit the goal by{' '}
+                <strong>{formatDeadline(ks.endsAt)}</strong>, we get nothing.
+              </p>
+              <p class="ks__perks">Depending on tier, backers get opening meal credits, stickers, merch, and early tastings.</p>
+              {ks.pledged ? (
+                <div class="ks__progress" role="img" aria-label={`${money(ks.pledged)} of ${money(ks.goal)} pledged`}>
+                  <div class="ks__bar">
+                    <span style={`width:${pct}%`} />
+                  </div>
+                  <p>
+                    <strong>{money(ks.pledged)}</strong> of {money(ks.goal)} pledged
+                  </p>
+                </div>
+              ) : null}
+              <div class="btn-row">
+                <a class="btn btn--red" href={ks.url} target="_blank" rel="noopener">
+                  Back this project ↗
+                </a>
+                <span class="ks__days">
+                  <strong>{days}</strong> {days === 1 ? 'day' : 'days'} left
+                </span>
+              </div>
+            </>
+          )
+        }
+        {
+          state === 'funded' && (
+            <>
+              <span class="eyebrow">Kickstarter · funded!</span>
+              <h2 id="ks-title">We did it. Thank you!</h2>
+              <p>
+                Because of you, Kingpin Katsu is getting a permanent home. Follow along on Instagram for build-out
+                updates and opening day news.
+              </p>
+              <a class="btn" href={site.instagram.url} target="_blank" rel="noopener">
+                Follow {site.instagram.handle}
+              </a>
+            </>
+          )
+        }
+        {
+          state === 'ended' && (
+            <>
+              <span class="eyebrow">Our Kickstarter</span>
+              <h2 id="ks-title">Thank you, backers!</h2>
+              <p>
+                Our Kickstarter has closed. Thank you to everyone who backed us and spread the word! We're still working
+                toward our first restaurant. Follow {site.instagram.handle} for news.
+              </p>
+              <a class="btn" href={site.instagram.url} target="_blank" rel="noopener">
+                Follow {site.instagram.handle}
+              </a>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ks__card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    background: var(--cream);
+    color: var(--ink);
+    border: 4px solid var(--ink);
+    border-radius: 32px;
+    box-shadow: 10px 10px 0 var(--orange);
+    padding: clamp(1.25rem, 3.5vw, 2.75rem);
+  }
+  .ks__card .eyebrow {
+    color: var(--red);
+  }
+  .hl-red {
+    color: var(--red-hot);
+  }
+  .ks__photo {
+    position: relative;
+  }
+  .ks__photo img {
+    border-radius: 22px;
+    border: 3px solid var(--ink);
+    aspect-ratio: 4 / 3.4;
+    object-fit: cover;
+    width: 100%;
+  }
+  .ks__sticker {
+    position: absolute;
+    left: -10px;
+    bottom: -14px;
+    background: var(--orange);
+  }
+  .ks__perks {
+    font-weight: 600;
+    color: var(--red);
+  }
+  .ks__days {
+    font: 400 1rem/1 var(--display);
+  }
+  .ks__days strong {
+    font-size: 2rem;
+    color: var(--red-hot);
+    vertical-align: -0.12em;
+  }
+  .ks__bar {
+    height: 18px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .ks__bar span {
+    display: block;
+    height: 100%;
+    background: repeating-linear-gradient(-45deg, var(--orange) 0 10px, var(--orange-2) 10px 20px);
+  }
+  .ks__progress p {
+    margin: 0.4rem 0 1.2rem;
+  }
+  @media (max-width: 860px) {
+    .ks__card {
+      grid-template-columns: 1fr;
+      box-shadow: 6px 6px 0 var(--orange);
+    }
+  }
+</style>

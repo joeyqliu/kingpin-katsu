@@ -1,0 +1,49 @@
+---
+import { site } from '../lib/data';
+import { kickstarterState, daysLeft } from '../lib/time';
+const now = new Date();
+const live = kickstarterState(site.kickstarter, now) === 'live';
+const days = daysLeft(site.kickstarter.endsAt, now);
+---
+
+{
+  live && (
+    <a class="ks-bar" href={site.kickstarter.url} target="_blank" rel="noopener">
+      <span class="ks-bar__pill">Kickstarter</span>
+      <span>
+        Help us open our first restaurant! <strong>{days} {days === 1 ? 'day' : 'days'} left</strong>
+      </span>
+      <span aria-hidden="true">→</span>
+    </a>
+  )
+}
+
+<style>
+  .ks-bar {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.55rem 1rem;
+    background: var(--orange);
+    color: var(--ink);
+    font-size: 0.92rem;
+    text-decoration: none;
+    text-align: center;
+    border-bottom: 3px solid var(--ink);
+  }
+  .ks-bar:hover span:last-child {
+    transform: translateX(3px);
+  }
+  .ks-bar span:last-child {
+    transition: transform 0.15s;
+  }
+  .ks-bar__pill {
+    background: var(--ink);
+    color: var(--orange);
+    font: 400 0.72rem/1 var(--display);
+    padding: 0.35em 0.7em;
+    border-radius: 999px;
+  }
+</style>

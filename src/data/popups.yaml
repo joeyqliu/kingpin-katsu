@@ -1,0 +1,19 @@
+# Upcoming pop-ups. Past dates hide automatically.
+#
+# HOW TO ADD ONE:
+#   1. Delete the [] line at the very bottom of this file.
+#   2. Add a block like the example below, WITHOUT the "#" at the start of
+#      each line. Keep the two-space indents.
+#   date, name and venue are required; date must look like '2026-11-07'.
+#
+#- date: '2026-11-07'
+#  start: '5pm'
+#  end: '10pm'
+#  name: Alameda Night Market
+#  venue: Park Street
+#  address: 1400 Park St, Alameda, CA
+#  mapUrl: https://maps.google.com/?q=1400+Park+St+Alameda
+#  link: https://www.instagram.com/kingpin.katsu/
+#  note: Bring a friend, bento sells out fast!
+
+[]

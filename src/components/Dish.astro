@@ -1,0 +1,91 @@
+---
+import { Picture } from 'astro:assets';
+import { foodImage } from '../lib/images';
+import type { MenuItem } from '../lib/types';
+
+interface Props {
+  item: MenuItem;
+  tilt?: number;
+  compact?: boolean;
+}
+const { item, tilt = -3, compact = false } = Astro.props;
+---
+
+<article class:list={['dish', { 'dish--compact': compact }]}>
+  <div class="dish__img wiggle">
+    <Picture
+      src={foodImage(item.image)}
+      formats={['avif', 'webp']}
+      alt={item.name}
+      widths={[320, 520, 760]}
+      sizes="(max-width: 640px) 80vw, 360px"
+    />
+  </div>
+  <h3 class="sticker dish__name" style={`--tilt:${tilt}deg`}>{item.name}</h3>
+  {item.price && <span class="dish__price">{item.price}</span>}
+  {!compact && <p class="dish__desc">{item.description}</p>}
+  {
+    item.tags && item.tags.length > 0 && (
+      <ul class="dish__tags">
+        {item.tags.map((t) => (
+          <li>{t}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .dish {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+  .dish__img {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1;
+  }
+  .dish__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dish__name {
+    margin: -1.8rem 0 0.9rem;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .dish__price {
+    position: absolute;
+    top: 8%;
+    right: 6%;
+    background: var(--orange);
+    color: var(--ink);
+    font: 400 1rem/1 var(--display);
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.6em 0.7em;
+    transform: rotate(10deg);
+  }
+  .dish__desc {
+    max-width: 30ch;
+    opacity: 0.88;
+    font-size: 0.98rem;
+  }
+  .dish__tags {
+    list-style: none;
+    display: flex;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0;
+  }
+  .dish__tags li {
+    font-size: 0.75rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 0.15em 0.6em;
+  }
+</style>

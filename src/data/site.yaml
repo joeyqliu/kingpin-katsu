@@ -1,0 +1,38 @@
+# Kingpin Katsu — site settings.
+# Edit in GitHub: click the pencil icon, change a value, "Commit changes".
+# The site rebuilds automatically in ~2 minutes. See EDITING.md.
+
+name: Kingpin Katsu
+tagline: The new boss of katsu is in town!
+email: kingpinkatsu@gmail.com
+
+# Phone for "Call for quotes". Leave empty ('') to hide call buttons.
+# Example: phone: '(510) 555-0123'
+phone: ''
+
+# Online ordering link. Leave empty ('') to hide all "Order" buttons.
+# Example: orderUrl: 'https://kingpin-katsu.square.site/'
+orderUrl: ''
+
+instagram:
+  handle: '@kingpin.katsu'
+  url: https://www.instagram.com/kingpin.katsu/
+facebook:
+  handle: Kingpin.Katsu
+  url: https://www.facebook.com/Kingpin.Katsu/
+
+kickstarter:
+  url: https://www.kickstarter.com/projects/kingpinkatsu/help-bring-kingpin-katsu-to-its-permanent-home?utm_source=website
+  endsAt: '2026-11-16T22:13:00-08:00'
+  goal: 25000
+  # Optional: amount pledged so far (whole dollars). Leave empty to hide.
+  pledged:
+  # live = campaign running (switches to "ended" automatically after endsAt)
+  # funded = we hit the goal!   ended = campaign over
+  status: live
+
+# Places we've popped up before (shown on the Pop-ups page).
+pastVenues:
+  - 365 Night Market
+  - Faction Brewing
+  - Creedon Circle

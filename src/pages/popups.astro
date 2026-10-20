@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PopupsBlock from '../components/PopupsBlock.astro';
+import { eventImage } from '../lib/images';
+import { site } from '../lib/data';
+import { url } from '../lib/url';
+
+const gallery = [
+  { img: 'booth-crowd', cap: '365 Night Market', tilt: -3 },
+  { img: 'crowd-presidio', cap: 'Packed house', tilt: 2 },
+  { img: 'flag-swing', cap: 'Waving the flag', tilt: -2 },
+  { img: 'creedon-booth', cap: 'Creedon Circle', tilt: 3 },
+  { img: 'faction-team', cap: 'Faction Brewing', tilt: -3 },
+  { img: 'night-queue', cap: 'Open late', tilt: 2 },
+];
+---
+
+<Base
+  title="Pop-ups"
+  description="Where to find Kingpin Katsu next. Bay Area night markets, breweries and pop-ups. Follow @kingpin.katsu for dates."
+>
+  <section class="section panko">
+    <div class="wrap">
+      <header class="phead">
+        <span class="eyebrow">Find us</span>
+        <h1>Where's the katsu?</h1>
+        <p>
+          Until our restaurant opens, we fry at night markets, breweries, and community events around the Bay.
+        </p>
+      </header>
+      <PopupsBlock />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <header class="phead">
+        <h2>Where we've popped up</h2>
+        <ul class="venues">
+          {site.pastVenues.map((v) => <li class="sticker">{v}</li>)}
+        </ul>
+      </header>
+      <div class="gallery">
+        {
+          gallery.map((g) => (
+            <figure class="polaroid" style={`--tilt:${g.tilt}deg`}>
+              <Image src={eventImage(g.img)} alt={`Kingpin Katsu pop-up: ${g.cap}`} widths={[360, 560]} sizes="(max-width: 720px) 85vw, 360px" />
+              <figcaption>{g.cap}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-orange noren-top" style="--noren: var(--ink)">
+    <div class="wrap host">
+      <h2>Want us at your event?</h2>
+      <p>Markets, breweries, block parties, school fundraisers: we bring the booth and the fryers.</p>
+      <a class="btn btn--ink" href={url('catering')}>Book us for catering</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .phead {
+    text-align: center;
+    max-width: 42rem;
+    margin: 0 auto 3.5rem;
+  }
+  .phead p {
+    opacity: 0.9;
+  }
+  .venues {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+  .venues li:nth-child(2n) {
+    --tilt: 3deg;
+    background: var(--orange);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+  .host {
+    text-align: center;
+    max-width: 40rem;
+    padding-top: 1.5rem;
+  }
+  @media (max-width: 860px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .gallery {
+      grid-template-columns: 1fr;
+      max-width: 380px;
+      margin-inline: auto;
+    }
+  }
+</style>

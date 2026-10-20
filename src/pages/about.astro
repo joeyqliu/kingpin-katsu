@@ -1,0 +1,213 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import KickstarterBlock from '../components/KickstarterBlock.astro';
+import mascot from '../assets/brand/mascot.jpg';
+import { eventImage } from '../lib/images';
+
+const hoods = [
+  'Downtown Alameda (Park St.)',
+  'Noe Valley, SF',
+  'Marina District, SF',
+  'Mission District, SF',
+  'Inner Sunset, SF',
+  'Downtown Berkeley',
+  'Southside / Telegraph, Berkeley',
+];
+---
+
+<Base
+  title="About us"
+  description="Kingpin Katsu is a family-run Bay Area katsu business. Dry-brined cutlets, Japanese panko, sides made by hand daily, and a restaurant on the way."
+>
+  <section class="section panko">
+    <div class="wrap ahero">
+      <div>
+        <span class="eyebrow">About us</span>
+        <h1>Family-run.<br /><span class="hl">Katsu-obsessed.</span></h1>
+        <p>
+          We are first and foremost a family-run business! Our journey began with a trip across Asia, where we
+          immersed ourselves in the culinary traditions of Japan, studying the art of creating the perfect katsu.
+          Combining the best techniques we could find, we returned home to bring you a brand new katsu experience.
+        </p>
+      </div>
+      <figure class="polaroid" style="--tilt: 3deg">
+        <Image src={eventImage('team-selfie')} alt="The Kingpin Katsu family and crew at the booth" widths={[420, 640]} sizes="(max-width: 860px) 90vw, 480px" loading="eager" />
+        <figcaption>The Kingpin crew</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section on-cream" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title" class="center">How we make it</h2>
+      <ol class="how">
+        <li>
+          <span class="how__n">1</span>
+          <h3>Dry-brined overnight</h3>
+          <p>Every cutlet rests overnight in our own seasoning blend.</p>
+        </li>
+        <li>
+          <span class="how__n">2</span>
+          <h3>Japanese panko</h3>
+          <p>Breaded by hand for that crunchy, golden shell.</p>
+        </li>
+        <li>
+          <span class="how__n">3</span>
+          <h3>Fried to order</h3>
+          <p>Extremely juicy, full of flavor, and it holds its crunch.</p>
+        </li>
+        <li>
+          <span class="how__n">4</span>
+          <h3>Sides made daily</h3>
+          <p>All of our sides are hand-prepared fresh to pair with the katsu.</p>
+        </li>
+      </ol>
+      <p class="center how__end">We hope our obsessive passion for good katsu comes through in every bite.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap born">
+      <Image src={mascot} alt="The Kingpin Katsu mascot: an orange cat in a top hat and suit, holding a cane" width={420} class="born__cat bob" />
+      <div>
+        <span class="eyebrow">Inspired by Asia, born in the Bay Area</span>
+        <h2>Katsu, done right.</h2>
+        <p>
+          We love everything katsu, except that it's hard to find it done right! We've broken down what makes katsu great
+          in Japan and brought those techniques to you. From our crispy golden panko to our handcrafted side dishes, we
+          aim to deliver an authentic katsu experience with every bite.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-red noren-top" style="--noren: var(--ink)" aria-labelledby="next-title">
+    <div class="wrap next">
+      <div>
+        <span class="eyebrow">What's next</span>
+        <h2 id="next-title">From a 10×10 booth to a real home.</h2>
+        <p>
+          Every pop-up, someone asks: "When are you opening a real location?" We're working on it! We're planning a
+          small, fast-casual katsu shop that feels like a warm Kyoto side street, with lanterns, banners, wood, and
+          the crunch you already know.
+        </p>
+        <p>Spots we're scouting:</p>
+        <ul class="hoods">{hoods.map((h) => <li>{h}</li>)}</ul>
+        <p class="next__dm">Where should we land? Tell us in our Instagram DMs.</p>
+      </div>
+      <figure class="polaroid" style="--tilt: -3deg">
+        <Image src={eventImage('booth-build')} alt="Building the wooden Kingpin Katsu booth" widths={[420, 640]} sizes="(max-width: 860px) 90vw, 460px" />
+        <figcaption>Booth build day</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <KickstarterBlock />
+</Base>
+
+<style>
+  .center {
+    text-align: center;
+  }
+  .ahero,
+  .born,
+  .next {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .ahero p {
+    font-size: 1.1rem;
+    max-width: 44ch;
+  }
+  .how {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .how li {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.3rem 1rem;
+    box-shadow: 5px 5px 0 var(--orange);
+  }
+  .how li:nth-child(even) {
+    box-shadow: 5px 5px 0 var(--red-hot);
+    transform: translateY(14px);
+  }
+  .how__n {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--orange);
+    font: 400 1.2rem/1 var(--display);
+    margin-bottom: 0.8rem;
+  }
+  .how__end {
+    margin-top: 3rem;
+    font: 400 1.2rem/1.4 var(--display);
+    color: var(--red);
+  }
+  .born {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+  .born :global(.born__cat) {
+    border-radius: 50%;
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--orange);
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #fff;
+  }
+  .hoods {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hoods li {
+    background: rgb(0 0 0 / 0.25);
+    border: 2px solid rgb(255 244 224 / 0.4);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.92rem;
+  }
+  .next__dm {
+    font-weight: 600;
+    color: var(--orange);
+  }
+  @media (max-width: 960px) {
+    .how {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 860px) {
+    .ahero,
+    .born,
+    .next {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .how {
+      grid-template-columns: 1fr;
+    }
+    .how li:nth-child(even) {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import catHead from '../assets/brand/cat-head.png';
+import { url } from '../lib/url';
+---
+
+<Base title="Page not found" description="This page got fried. Head back to Kingpin Katsu." legacyRedirect>
+  <section class="section panko nf">
+    <div class="wrap">
+      <Image src={catHead} alt="" width={220} height={220} class="nf__cat bob" loading="eager" />
+      <h1>This page got <span class="hl">fried.</span></h1>
+      <p>We couldn't find what you were looking for. The katsu is this way:</p>
+      <div class="btn-row nf__links">
+        <a class="btn" href={url()}>Home</a>
+        <a class="btn btn--ink" href={url('menu')}>Menu</a>
+        <a class="btn btn--ink" href={url('popups')}>Pop-ups</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    text-align: center;
+    min-height: 60vh;
+  }
+  .nf :global(.nf__cat) {
+    margin: 0 auto 1.5rem;
+    width: 180px;
+    height: 180px;
+    filter: drop-shadow(6px 6px 0 var(--orange));
+  }
+  .nf__links {
+    justify-content: center;
+  }
+</style>

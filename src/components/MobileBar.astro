@@ -1,0 +1,70 @@
+---
+import { site } from '../lib/data';
+import { kickstarterState } from '../lib/time';
+import { url } from '../lib/url';
+const live = kickstarterState(site.kickstarter, new Date()) === 'live';
+---
+
+<nav class="mbar" aria-label="Quick actions">
+  <a href={url('popups')}><span class="mbar__ico" aria-hidden="true">⛺</span>Pop-ups</a>
+  <a href={url('catering')}><span class="mbar__ico" aria-hidden="true">🍱</span>Catering</a>
+  {
+    site.orderUrl && (
+      <a href={site.orderUrl}>
+        <span class="mbar__ico" aria-hidden="true">🛍️</span>Order
+      </a>
+    )
+  }
+  {
+    live ? (
+      <a class="mbar__hot" href={site.kickstarter.url} target="_blank" rel="noopener">
+        <span class="mbar__ico" aria-hidden="true">🏮</span>Back us
+      </a>
+    ) : (
+      <a class="mbar__hot" href={site.instagram.url} target="_blank" rel="noopener">
+        <span class="mbar__ico" aria-hidden="true">📸</span>Follow
+      </a>
+    )
+  }
+</nav>
+
+<style>
+  .mbar {
+    display: none;
+  }
+  @media (max-width: 720px) {
+    .mbar {
+      position: fixed;
+      z-index: 60;
+      left: 10px;
+      right: 10px;
+      bottom: max(10px, env(safe-area-inset-bottom));
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      gap: 6px;
+      padding: 6px;
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgb(0 0 0 / 0.5);
+    }
+    .mbar a {
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      padding: 0.45rem 0.25rem;
+      color: var(--ink);
+      text-decoration: none;
+      font: 400 0.78rem/1 var(--display);
+      border-radius: 14px;
+    }
+    .mbar__ico {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .mbar a.mbar__hot {
+      background: var(--orange);
+    }
+  }
+</style>

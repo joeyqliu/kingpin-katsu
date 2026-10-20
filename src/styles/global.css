@@ -1,0 +1,345 @@
+@import '@fontsource/mochiy-pop-p-one/latin-400.css';
+@import '@fontsource/kanit/latin-400.css';
+@import '@fontsource/kanit/latin-600.css';
+
+:root {
+  --ink: #000;
+  --ink-2: #1a0f0d;
+  --red: #680000;
+  --red-hot: #d7263d;
+  --orange: #ff9f1c;
+  --orange-2: #ffb547;
+  --cream: #fff4e0;
+  --wood: #b5763a;
+  --wood-dark: #7a4a1f;
+
+  --display: 'Mochiy Pop P One', 'Hiragino Maru Gothic ProN', system-ui, sans-serif;
+  --body: 'Kanit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius: 22px;
+  --shadow: 5px 5px 0 var(--ink);
+  --wrap: min(1160px, 100% - 2.5rem);
+  --bar-h: 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font: 400 1.0625rem/1.6 var(--body);
+  padding-bottom: var(--bar-h);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.12;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 7vw, 5rem);
+}
+h2 {
+  font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+}
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  width: var(--wrap);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 9vw, 7rem);
+  position: relative;
+}
+
+.eyebrow {
+  display: inline-block;
+  font: 600 0.8rem/1 var(--body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.9rem;
+}
+
+.hl {
+  color: var(--orange);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Surfaces ---------- */
+.on-red {
+  background: var(--red);
+}
+.on-cream {
+  background: var(--cream);
+  color: var(--ink);
+}
+.on-cream .eyebrow {
+  color: var(--red);
+}
+.on-orange {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+/* Panko crumb texture */
+.panko {
+  background-image: radial-gradient(rgb(255 159 28 / 0.14) 1.2px, transparent 1.6px),
+    radial-gradient(rgb(255 244 224 / 0.08) 1px, transparent 1.4px);
+  background-size: 18px 18px, 11px 11px;
+  background-position: 0 0, 5px 7px;
+}
+.on-cream.panko {
+  background-image: radial-gradient(rgb(104 0 0 / 0.1) 1.2px, transparent 1.6px);
+  background-size: 16px 16px;
+}
+
+/* Noren curtain edge: hanging scallops in the given color */
+.noren-top,
+.noren-bottom {
+  position: relative;
+}
+.noren-top::before,
+.noren-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: radial-gradient(circle at 50% 0, var(--noren, var(--red)) 15px, transparent 16px) 0 0 / 34px
+    22px repeat-x;
+  pointer-events: none;
+  z-index: 1;
+}
+.noren-top::before {
+  top: -1px;
+}
+.noren-bottom::after {
+  bottom: -21px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --bg: var(--orange);
+  --fg: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.8em 1.35em;
+  font: 400 1rem/1 var(--display);
+  color: var(--fg);
+  background: var(--bg);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.btn--cream {
+  --bg: var(--cream);
+}
+.btn--red {
+  --bg: var(--red-hot);
+  --fg: var(--cream);
+}
+.btn--ink {
+  --bg: var(--ink);
+  --fg: var(--cream);
+  border-color: var(--cream);
+  box-shadow: 5px 5px 0 var(--orange);
+}
+.btn--ink:hover {
+  box-shadow: 7px 7px 0 var(--orange);
+}
+.btn--sm {
+  font-size: 0.85rem;
+  padding: 0.65em 1.05em;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1rem;
+  align-items: center;
+}
+
+/* ---------- Sticker / tag ---------- */
+.sticker {
+  display: inline-block;
+  font: 400 0.95rem/1.1 var(--display);
+  background: var(--cream);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 0.45em 0.75em;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(var(--tilt, -3deg));
+}
+
+/* ---------- Photo card ---------- */
+.polaroid {
+  background: var(--cream);
+  padding: 10px 10px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  transform: rotate(var(--tilt, 0deg));
+}
+.polaroid img {
+  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.polaroid figcaption {
+  color: var(--ink);
+  font: 400 0.85rem/1.2 var(--display);
+  margin-top: 0.55rem;
+  text-align: center;
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .wiggle:hover {
+    animation: wiggle 0.5s ease-in-out;
+  }
+  .sway {
+    transform-origin: 50% 0;
+    animation: sway 4.5s ease-in-out infinite;
+  }
+  .spin-slow {
+    animation: spin 40s linear infinite;
+  }
+  .bob {
+    animation: bob 3.2s ease-in-out infinite;
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile bottom bar spacing */
+@media (max-width: 720px) {
+  :root {
+    --bar-h: 76px;
+  }
+}
+
+.visually-hidden:focus {
+  position: fixed !important;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  clip: auto;
+  z-index: 100;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+}

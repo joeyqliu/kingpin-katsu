@@ -1,0 +1,22 @@
+{
+  "name": "kingpin-katsu",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "check": "node scripts/check-dist.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/kanit": "^5.3.0",
+    "@fontsource/mochiy-pop-p-one": "^5.3.0",
+    "astro": "^7.3.8",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  }
+}
