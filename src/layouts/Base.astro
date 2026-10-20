@@ -30,7 +30,7 @@ const base = url();
     {
       legacyRedirect && (
         <script is:inline define:vars={{ base }}>
-          var m = { '#/menu': 'menu', '#/about': 'about', '#/contact': 'catering', '#/': '' };
+          var m = { '#/menu': 'menu/', '#/about': 'about/', '#/contact': 'catering/', '#/': '' };
           if (location.hash && location.hash in m) location.replace(base + m[location.hash]);
         </script>
       )
