@@ -12,8 +12,10 @@ interface Props {
   description: string;
   /** Redirect legacy hash URLs (/#/menu etc.) from the old site. */
   legacyRedirect?: boolean;
+  /** Keep the footer transition straight when the page already ends with a scalloped section. */
+  footerScalloped?: boolean;
 }
-const { title, description, legacyRedirect = false } = Astro.props;
+const { title, description, legacyRedirect = false, footerScalloped = true } = Astro.props;
 const base = url();
 ---
 
@@ -43,7 +45,7 @@ const base = url();
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer scallopedTop={footerScalloped} />
     <MobileBar />
   </body>
 </html>

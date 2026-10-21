@@ -6,6 +6,7 @@ import Marquee from '../components/Marquee.astro';
 import { foodImage } from '../lib/images';
 import { site, menu } from '../lib/data';
 import { kickstarterState } from '../lib/time';
+import nuggetsMenu from '../assets/food/katsu-nuggets-menu.png';
 
 const [katsu, sides] = menu.sections;
 const cutlets = [
@@ -57,7 +58,15 @@ const ksLive = kickstarterState(site.kickstarter, new Date()) === 'live';
         {katsu!.blurb && <p>{katsu!.blurb}</p>}
       </header>
       <div class="grid grid--3">
-        {katsu!.items.map((item, i) => <Dish item={item} tilt={i % 2 ? 3 : -3} />)}
+        {
+          katsu!.items.map((item, i) => (
+            <Dish
+              item={item}
+              image={item.image === 'nuggets' ? nuggetsMenu : undefined}
+              tilt={i % 2 ? 3 : -3}
+            />
+          ))
+        }
       </div>
       <p class="bento-note">
         <strong>Bento box =</strong> katsu + rice + cabbage + dipping sauce + <em>two</em> house sides.
