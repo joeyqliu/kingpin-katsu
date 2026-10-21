@@ -15,7 +15,8 @@ describe('data files', () => {
   it('every menu image exists and no prices ship', () => {
     for (const s of menu.sections)
       for (const i of s.items) {
-        expect(existsSync(`src/assets/food/${i.image}.jpg`), i.image).toBe(true);
+        const hasImage = ['png', 'jpg'].some((extension) => existsSync(`src/assets/food/${i.image}.${extension}`));
+        expect(hasImage, i.image).toBe(true);
         expect(i.price).toBeUndefined();
       }
   });

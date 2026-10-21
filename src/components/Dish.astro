@@ -1,22 +1,20 @@
 ---
 import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import { foodImage } from '../lib/images';
 import type { MenuItem } from '../lib/types';
 
 interface Props {
   item: MenuItem;
-  image?: ImageMetadata;
   tilt?: number;
   compact?: boolean;
 }
-const { item, image, tilt = -3, compact = false } = Astro.props;
+const { item, tilt = -3, compact = false } = Astro.props;
 ---
 
 <article class:list={['dish', { 'dish--compact': compact }]}>
   <div class="dish__img wiggle">
     <Picture
-      src={image ?? foodImage(item.image)}
+      src={foodImage(item.image)}
       formats={['avif', 'webp']}
       alt={item.name}
       widths={[320, 520, 760]}
