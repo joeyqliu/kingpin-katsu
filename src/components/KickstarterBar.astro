@@ -1,18 +1,15 @@
 ---
 import { site } from '../lib/data';
-import { kickstarterState, daysLeft } from '../lib/time';
+import { kickstarterState } from '../lib/time';
 const now = new Date();
 const live = kickstarterState(site.kickstarter, now) === 'live';
-const days = daysLeft(site.kickstarter.endsAt, now);
 ---
 
 {
   live && (
     <a class="ks-bar" href={site.kickstarter.url} target="_blank" rel="noopener">
       <span class="ks-bar__pill">Kickstarter</span>
-      <span>
-        Help us open our first restaurant! <strong>{days} {days === 1 ? 'day' : 'days'} left</strong>
-      </span>
+      <span>Help us open our first restaurant!</span>
       <span aria-hidden="true">→</span>
     </a>
   )
