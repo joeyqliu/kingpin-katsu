@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const DIST = 'dist';
-const BASE = '/kingpin-katsu/';
+const BASE = '/';
 const errors = [];
 const fail = (msg) => errors.push(msg);
 

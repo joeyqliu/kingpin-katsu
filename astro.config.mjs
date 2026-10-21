@@ -2,11 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Hosted on GitHub Pages under the repo path for now.
-// At domain cut-over: site -> 'https://www.kingpinkatsu.com', base -> '/', add public/CNAME.
+// Hosted on GitHub Pages at the custom domain (see public/CNAME).
 export default defineConfig({
-  site: 'https://joeyqliu.com',
-  base: '/kingpin-katsu',
+  site: 'https://www.kingpinkatsu.com',
+  base: '/',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
 });
