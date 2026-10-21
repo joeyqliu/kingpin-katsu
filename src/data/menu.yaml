@@ -35,7 +35,7 @@ sections:
         description: Pickled cucumber slices, seasoned with Ichimi Togarashi and topped with toasted sesame seeds.
         image: cucumber-salad
       - name: Macaroni Salad
-        description: Small macaroni noodles mixed with mayo, a dash of milk, and cubed Fuji apples.
+        description: Macaroni noodles mixed with mayo, cubed Fuji apples, and sweet and savory seasonings.
         image: mac-salad
 
 # Coming to the restaurant (from the Kickstarter)

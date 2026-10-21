@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pacificDate, upcomingPopups, kickstarterState, daysLeft } from '../src/lib/time';
+import { pacificDate, upcomingPopups, kickstarterState, formatDeadline } from '../src/lib/time';
 import type { Popup, Kickstarter } from '../src/lib/types';
 
 const p = (date: string, name = date): Popup => ({ date, name, venue: 'V' });
@@ -50,11 +50,8 @@ describe('kickstarterState', () => {
   });
 });
 
-describe('daysLeft', () => {
-  it('counts whole days remaining, rounding up', () => {
-    expect(daysLeft('2026-11-16T22:13:00-08:00', new Date('2026-10-20T19:00:00-07:00'))).toBe(28);
-  });
-  it('is 0 after the end', () => {
-    expect(daysLeft('2026-11-16T22:13:00-08:00', new Date('2026-11-20T00:00:00Z'))).toBe(0);
+describe('formatDeadline', () => {
+  it('shows the full Pacific deadline date without a countdown', () => {
+    expect(formatDeadline('2026-11-16T22:13:00-08:00')).toBe('Monday, November 16, 2026');
   });
 });

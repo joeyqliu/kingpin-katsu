@@ -1,13 +1,24 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import booth from '../assets/events/booth-night-team.jpg';
 import { site } from '../lib/data';
-import { kickstarterState, daysLeft, formatDeadline } from '../lib/time';
+import { kickstarterState, formatDeadline } from '../lib/time';
 
+interface Props {
+  photo?: ImageMetadata;
+  photoAlt?: string;
+  showFullPhoto?: boolean;
+}
+
+const {
+  photo = booth,
+  photoAlt = 'The Kingpin Katsu crew in front of their wooden pop-up booth at night',
+  showFullPhoto = false,
+} = Astro.props;
 const ks = site.kickstarter;
 const now = new Date();
 const state = kickstarterState(ks, now);
-const days = daysLeft(ks.endsAt, now);
 const money = (n: number) => `$${n.toLocaleString('en-US')}`;
 const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100)) : 0;
 ---
@@ -15,8 +26,8 @@ const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100))
 <section class="section ks" id="kickstarter" aria-labelledby="ks-title">
   <div class="wrap">
     <div class="ks__card">
-      <div class="ks__photo">
-        <Image src={booth} alt="The Kingpin Katsu crew in front of their wooden pop-up booth at night" widths={[480, 800]} sizes="(max-width: 860px) 100vw, 420px" />
+      <div class:list={['ks__photo', { 'ks__photo--full': showFullPhoto }]}>
+        <Image src={photo} alt={photoAlt} widths={[480, 800]} sizes="(max-width: 860px) 100vw, 420px" />
         <span class="sticker ks__sticker" style="--tilt: -8deg">From booth → restaurant</span>
       </div>
 
@@ -48,8 +59,8 @@ const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100))
                 <a class="btn btn--red" href={ks.url} target="_blank" rel="noopener">
                   Back this project ↗
                 </a>
-                <span class="ks__days">
-                  <strong>{days}</strong> {days === 1 ? 'day' : 'days'} left
+                <span class="ks__deadline">
+                  <strong>{formatDeadline(ks.endsAt)}</strong> is the last day to pledge and help us hit our goal.
                 </span>
               </div>
             </>
@@ -119,6 +130,9 @@ const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100))
     object-fit: cover;
     width: 100%;
   }
+  .ks__photo--full img {
+    aspect-ratio: 4 / 3;
+  }
   .ks__sticker {
     position: absolute;
     left: -10px;
@@ -129,13 +143,12 @@ const pct = ks.pledged ? Math.min(100, Math.round((ks.pledged / ks.goal) * 100))
     font-weight: 600;
     color: var(--red);
   }
-  .ks__days {
-    font: 400 1rem/1 var(--display);
+  .ks__deadline {
+    max-width: 24rem;
+    font: 400 0.95rem/1.25 var(--display);
   }
-  .ks__days strong {
-    font-size: 2rem;
+  .ks__deadline strong {
     color: var(--red-hot);
-    vertical-align: -0.12em;
   }
   .ks__bar {
     height: 18px;

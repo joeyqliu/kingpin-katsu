@@ -8,6 +8,7 @@ import Dish from '../components/Dish.astro';
 import ContactLinks from '../components/ContactLinks.astro';
 import badge from '../assets/brand/badge.png';
 import heroBento from '../assets/food/chicken-katsu-bento.jpg';
+import factionBreweryTeam from '../assets/events/faction-brewery-team.jpg';
 import teamSelfie from '../assets/events/team-selfie.jpg';
 import { eventImage } from '../lib/images';
 import { site, menu } from '../lib/data';
@@ -67,7 +68,11 @@ const igSquares = [
 
   <Marquee words={['Crispy', 'Juicy', 'Fried to order', 'Chicken', 'Pork', 'Tofu', 'Bay Area born']} />
 
-  <KickstarterBlock />
+  <KickstarterBlock
+    photo={factionBreweryTeam}
+    photoAlt="The Kingpin Katsu team in front of their booth at Faction Brewing"
+    showFullPhoto
+  />
 
   <!-- POP-UPS -->
   <section class="section" id="popups" aria-label="Pop-ups">

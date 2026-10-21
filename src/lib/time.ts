@@ -1,7 +1,6 @@
 import type { Kickstarter, Popup } from './types';
 
 const TZ = 'America/Los_Angeles';
-const DAY_MS = 86_400_000;
 
 /** Calendar date (YYYY-MM-DD) of `d` in Pacific time. */
 export function pacificDate(d: Date): string {
@@ -24,10 +23,6 @@ export function kickstarterState(ks: Kickstarter, now: Date): 'live' | 'ended' |
   return now.getTime() < new Date(ks.endsAt).getTime() ? 'live' : 'ended';
 }
 
-export function daysLeft(endsAt: string, now: Date): number {
-  return Math.max(0, Math.ceil((new Date(endsAt).getTime() - now.getTime()) / DAY_MS));
-}
-
 /** "Sat, Nov 7" for a YYYY-MM-DD date. */
 export function formatPopupDate(date: string): string {
   return new Intl.DateTimeFormat('en-US', {
@@ -38,12 +33,13 @@ export function formatPopupDate(date: string): string {
   }).format(new Date(`${date}T00:00:00Z`));
 }
 
-/** "Mon, Nov 16" for an ISO timestamp, in Pacific time. */
+/** "Monday, November 16, 2026" for an ISO timestamp, in Pacific time. */
 export function formatDeadline(iso: string): string {
   return new Intl.DateTimeFormat('en-US', {
     timeZone: TZ,
-    weekday: 'short',
-    month: 'short',
+    weekday: 'long',
+    month: 'long',
     day: 'numeric',
+    year: 'numeric',
   }).format(new Date(iso));
 }

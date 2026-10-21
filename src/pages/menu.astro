@@ -59,9 +59,6 @@ const ksLive = kickstarterState(site.kickstarter, new Date()) === 'live';
       <div class="grid grid--3">
         {katsu!.items.map((item, i) => <Dish item={item} tilt={i % 2 ? 3 : -3} />)}
       </div>
-      <p class="bento-note">
-        <strong>Bento box =</strong> katsu + rice + cabbage + dipping sauce + <em>two</em> house sides.
-      </p>
     </div>
   </section>
 
@@ -177,14 +174,6 @@ const ksLive = kickstarterState(site.kickstarter, new Date()) === 'live';
   }
   .grid--4 {
     grid-template-columns: repeat(4, 1fr);
-  }
-  .bento-note {
-    text-align: center;
-    margin: 2.5rem auto 0;
-    width: fit-content;
-    border: 3px dashed var(--orange);
-    border-radius: 18px;
-    padding: 1rem 1.5rem;
   }
   .soon {
     display: grid;
