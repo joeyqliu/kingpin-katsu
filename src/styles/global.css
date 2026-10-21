@@ -132,16 +132,15 @@ p {
   color: var(--ink);
 }
 
-/* Panko crumb texture */
+/* Soft gradient wash */
 .panko {
-  background-image: radial-gradient(rgb(255 159 28 / 0.14) 1.2px, transparent 1.6px),
-    radial-gradient(rgb(255 244 224 / 0.08) 1px, transparent 1.4px);
-  background-size: 18px 18px, 11px 11px;
-  background-position: 0 0, 5px 7px;
+  background-image: radial-gradient(ellipse at 12% 15%, rgb(255 159 28 / 0.18), transparent 42%),
+    radial-gradient(ellipse at 88% 85%, rgb(104 0 0 / 0.5), transparent 46%);
+  background-repeat: no-repeat;
 }
 .on-cream.panko {
-  background-image: radial-gradient(rgb(104 0 0 / 0.1) 1.2px, transparent 1.6px);
-  background-size: 16px 16px;
+  background-image: radial-gradient(ellipse at 12% 15%, rgb(255 159 28 / 0.16), transparent 42%),
+    radial-gradient(ellipse at 88% 85%, rgb(104 0 0 / 0.1), transparent 46%);
 }
 
 /* Noren curtain edge: hanging scallops in the given color */
