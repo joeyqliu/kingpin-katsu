@@ -172,6 +172,14 @@ const links = [
     background: var(--orange);
   }
   @media (max-width: 880px) {
+    .hdr {
+      position: fixed;
+      inset: 0 0 auto;
+      width: 100%;
+    }
+    :global(body) {
+      padding-top: 77px;
+    }
     .hdr__nav,
     .hdr__cta {
       display: none;
